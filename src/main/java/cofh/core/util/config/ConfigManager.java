@@ -30,7 +30,7 @@ public class ConfigManager
 
 	private static ConfigManager INSTANCE;
 
-	public static ConfigManager Instance()
+	public static ConfigManager instance()
 	{
 		if (INSTANCE == null)
 		{
