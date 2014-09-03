@@ -13,6 +13,7 @@ import cofh.core.network.PacketSocial;
 import cofh.core.util.ConfigHandler;
 import cofh.core.util.FMLEventHandler;
 import cofh.core.util.SocialRegistry;
+import cofh.core.util.config.ConfigManager;
 import cofh.core.util.crafting.RecipeAugmentable;
 import cofh.core.util.crafting.RecipeSecure;
 import cofh.core.util.crafting.RecipeUpgrade;
@@ -27,15 +28,8 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
-
-import java.io.File;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -45,9 +39,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
 
 @Mod(modid = CoFHCore.modId, name = CoFHCore.modName, version = CoFHCore.version, dependencies = CoFHCore.dependencies)
 public class CoFHCore extends BaseMod {
@@ -94,6 +89,8 @@ public class CoFHCore extends BaseMod {
 		moduleCore();
 		moduleLoot();
 
+		ConfigManager.Instance().generateSets(event.getAsmData());
+
 		FeatureParser.initialize();
 		WorldHandler.initialize();
 		FMLEventHandler.initialize();
@@ -128,6 +125,8 @@ public class CoFHCore extends BaseMod {
 		proxy.registerPacketInformation();
 
 		PacketHandler.instance.postInit();
+
+		ConfigManager.Instance().nconfigure(this.configCore.getConfiguration(), "cofh");
 	}
 
 	@EventHandler

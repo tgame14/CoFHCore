@@ -19,13 +19,25 @@ public class ConfigManager
 	protected Set<Class> nclasses;
 	protected Set<Class> mclasses;
 
-	public ConfigManager()
+	protected ConfigManager()
 	{
 		this.nconfigs = new THashSet<ASMDataTable.ASMData>();
 		this.mconfigs = new THashSet<ASMDataTable.ASMData>();
 
 		this.nclasses = new THashSet<Class>();
 		this.mclasses = new THashSet<Class>();
+	}
+
+	private static ConfigManager INSTANCE;
+
+	public static ConfigManager Instance()
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new ConfigManager();
+		}
+
+		return INSTANCE;
 	}
 
 	public void generateSets(ASMDataTable table)
@@ -77,6 +89,11 @@ public class ConfigManager
 				}
 			}
 		}
+	}
+
+	public void mconfigure ()
+	{
+
 	}
 
 	private static void handleField(Field field, NConfig cfg, Configuration config)
