@@ -89,7 +89,7 @@ public class CoFHCore extends BaseMod {
 		moduleCore();
 		moduleLoot();
 
-		ConfigManager.Instance().generateSets(event.getAsmData());
+		ConfigManager.instance().generateSets(event.getAsmData());
 
 		FeatureParser.initialize();
 		WorldHandler.initialize();
@@ -126,7 +126,7 @@ public class CoFHCore extends BaseMod {
 
 		PacketHandler.instance.postInit();
 
-		ConfigManager.Instance().nconfigure(this.configCore.getConfiguration(), "cofh");
+		ConfigManager.instance().nconfigure(this.configCore.getConfiguration(), "cofh");
 	}
 
 	@EventHandler
